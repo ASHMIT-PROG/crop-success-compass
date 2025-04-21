@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
-import { Check, AlertTriangle, Leaf, BarChart, ThermometerSun } from "lucide-react";
+import { Check, AlertTriangle, Leaf, BarChart, ThermometerSun, MapPin } from "lucide-react";
 
 type PredictionResultProps = {
   isVisible: boolean;
@@ -15,6 +15,9 @@ type PredictionResultProps = {
     yieldPercentage: number;
     soilSuitability: number;
     climateCompatibility: number;
+    soilCompatibilityScore?: number;
+    soilCompatibilityRating?: string;
+    details?: any;
   } | null;
 };
 
@@ -39,6 +42,7 @@ const PredictionResult = ({ isVisible, results }: PredictionResultProps) => {
       </CardHeader>
       <CardContent className="pt-6 pb-4">
         <div className="space-y-6">
+          {/* Success Rate Section */}
           <div>
             <div className="flex justify-between mb-2">
               <h3 className="text-md font-semibold flex items-center">
@@ -49,9 +53,47 @@ const PredictionResult = ({ isVisible, results }: PredictionResultProps) => {
             </div>
             <Progress value={results.successRate} className="h-2 bg-gray-200" indicatorClassName={
               results.successRate > 70 ? "bg-green-600" :
-              results.successRate > 40 ? "bg-yellow-500" : "bg-red-500"
+                results.successRate > 40 ? "bg-yellow-500" : "bg-red-500"
             } />
           </div>
+
+          {/* SOIL COMPATIBILITY */}
+          {typeof results.soilCompatibilityScore === "number" && (
+            <div>
+              <div className="flex justify-between mb-2">
+                <h3 className="text-md font-semibold flex items-center">
+                  <MapPin className="h-4 w-4 mr-2 text-amber-700" />
+                  Soil Compatibility Score
+                  <span className={`ml-2 inline-block px-2 py-0.5 rounded text-xs ${results.soilCompatibilityScore >= 7
+                    ? "bg-green-200 text-green-800"
+                    : results.soilCompatibilityScore >= 5
+                      ? "bg-yellow-200 text-yellow-800"
+                      : "bg-red-200 text-red-800"
+                    } font-bold`}>
+                    {results.soilCompatibilityRating || ""}
+                  </span>
+                </h3>
+                <span className="font-bold text-lg">{results.soilCompatibilityScore}/10</span>
+              </div>
+              {/* Details */}
+              {results.details && (
+                <div className="pl-2 text-xs text-gray-500">
+                  Based on avg rainfall: {results.details.soilAvgRainfall?.toFixed(1) || "--"} mm, avg humidity: {results.details.soilAvgHumidity?.toFixed(1) || "--"}%
+                </div>
+              )}
+              <Progress
+                value={results.soilCompatibilityScore * 10}
+                className="h-2 bg-gray-100 mb-1"
+                indicatorClassName={
+                  results.soilCompatibilityScore >= 7
+                    ? "bg-green-600"
+                    : results.soilCompatibilityScore >= 5
+                      ? "bg-yellow-500"
+                      : "bg-red-500"
+                }
+              />
+            </div>
+          )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>

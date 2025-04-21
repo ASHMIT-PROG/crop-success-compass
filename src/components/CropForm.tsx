@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import MapSelector from './MapSelector';
+import OSMMapSelector from './OSMMapSelector';
 
 const months = [
   'January', 'February', 'March', 'April', 'May', 'June',
@@ -37,24 +37,19 @@ const CropForm = ({ onSubmit }: CropFormProps) => {
   const [error, setError] = useState<string>('');
 
   const handleSubmit = () => {
-    // Validate inputs
     if (!crop && !customCrop) {
       setError('Please select or enter a crop');
       return;
     }
-    
     if (!location) {
       setError('Please select a location');
       return;
     }
-    
     if (!month) {
       setError('Please select a seeding month');
       return;
     }
-    
     setError('');
-    
     onSubmit({
       crop: crop || customCrop,
       location,
@@ -99,11 +94,11 @@ const CropForm = ({ onSubmit }: CropFormProps) => {
 
           <div className="space-y-2">
             <Label>Location</Label>
-            <MapSelector 
+            <OSMMapSelector
               onLocationSelect={(lat, lon, name) => {
                 setLocation({ lat, lon });
                 setLocationName(name);
-              }} 
+              }}
             />
             {locationName && (
               <div className="text-sm text-muted-foreground mt-2">
@@ -130,8 +125,8 @@ const CropForm = ({ onSubmit }: CropFormProps) => {
 
           {error && <div className="text-sm font-medium text-destructive">{error}</div>}
 
-          <Button 
-            onClick={handleSubmit} 
+          <Button
+            onClick={handleSubmit}
             className="w-full bg-green-600 hover:bg-green-700"
           >
             Predict Crop Success
