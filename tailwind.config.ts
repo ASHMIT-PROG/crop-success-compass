@@ -52,6 +52,27 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+                // Agriculture-themed colors
+                soil: {
+                    light: '#E1C4A4',
+                    DEFAULT: '#8B6C42',
+                    dark: '#5E4A2E',
+                },
+                crop: {
+                    light: '#D4EDDA',
+                    DEFAULT: '#28A745',
+                    dark: '#155724',
+                },
+                harvest: {
+                    light: '#FFF3CD',
+                    DEFAULT: '#FFC107',
+                    dark: '#856404',
+                },
+                water: {
+                    light: '#D1ECFB',
+                    DEFAULT: '#17A2B8',
+                    dark: '#0C5460',
+                },
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
