@@ -19,16 +19,13 @@ const Index = () => {
   }) => {
     setIsLoading(true);
     setShowResults(false);
-    
+
     try {
-      // In a real app, this would call your Node.js backend
-      // which would then use the Gemini API
       const results = await predictCropSuccess(
         data.crop,
         data.location,
         data.month
       );
-      
       setPredictionResults(results);
       setShowResults(true);
     } catch (error) {
@@ -39,46 +36,47 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 to-blue-50 py-8 px-4">
-      <div className="max-w-5xl mx-auto">
+    <div className="min-h-screen flex items-center justify-center bg-[linear-gradient(108deg,#f2f58b_18%,#94c514ad_92%)] px-3 py-8 animate-fade-in">
+      <div className="w-full max-w-6xl rounded-3xl shadow-2xl bg-white/90 backdrop-blur-2xl border border-green-100 p-0 md:p-8 transition-all duration-300 hover:shadow-[0_8px_48px_-8px_rgba(53,125,80,0.13)]">
         <header className="mb-8 text-center">
-          <div className="flex items-center justify-center mb-3">
-            <Leaf className="h-8 w-8 text-green-600 mr-2" />
-            <h1 className="text-3xl font-bold text-green-800">
+          <div className="flex items-center justify-center mb-3 animate-scale-in">
+            <Leaf className="h-10 w-10 text-green-600 mr-2 drop-shadow-lg" />
+            <h1 className="text-4xl font-extrabold text-green-900 tracking-tight font-playfair transition-all duration-500 hover-scale">
               FarmSight AI
             </h1>
           </div>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            AI-powered predictions to help farmers make informed planting decisions,
-            maximize yields and prevent losses.
-          </p>
+          <div className="flex justify-center">
+            <p className="text-lg md:text-xl text-green-700/80 bg-green-50/80 rounded-xl px-6 py-3 max-w-2xl shadow hover:shadow-md transition-all duration-200 border border-green-100">
+              AI-powered predictions to help farmers make <span className="font-semibold text-primary">informed planting decisions</span>, maximize yields and prevent losses.
+            </p>
+          </div>
         </header>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           <div className="lg:col-span-2">
-            <Card>
-              <CardHeader className="bg-green-50 border-b border-green-100">
-                <CardTitle className="text-green-800">Enter Farm Details</CardTitle>
+            <Card className="hover:shadow-xl hover:scale-[1.01] transition-all duration-200 border-green-200 border-2 rounded-2xl bg-white/90">
+              <CardHeader className="bg-gradient-to-r from-green-50 via-white to-blue-50 border-b border-green-100 rounded-t-2xl">
+                <CardTitle className="text-green-900 text-2xl">Enter Farm Details</CardTitle>
               </CardHeader>
               <CardContent className="p-0">
                 <CropForm onSubmit={handleFormSubmit} />
               </CardContent>
             </Card>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
               <DatasetInfo />
-              <Card className="h-full">
+              <Card className="h-full hover:shadow-lg transition-all border-green-100 rounded-xl bg-green-50/80">
                 <CardHeader className="pb-2">
                   <CardTitle className="text-lg flex items-center">
-                    <BarChart className="h-5 w-5 text-green-600 mr-2" />
+                    <BarChart className="h-5 w-5 text-green-500 mr-2" />
                     How It Works
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="pt-4">
-                  <ol className="space-y-2 text-sm text-gray-600 list-decimal pl-4">
+                  <ol className="space-y-2 text-base text-green-800/90 list-decimal pl-5 font-medium">
                     <li>Enter your crop choice and farm location</li>
                     <li>Select the planned seeding month</li>
-                    <li>Our AI analyzes soil & climate compatibility</li>
+                    <li>Our AI analyzes soil &amp; climate compatibility</li>
                     <li>Receive success rate prediction and recommendations</li>
                   </ol>
                 </CardContent>
@@ -88,25 +86,27 @@ const Index = () => {
 
           <div className="relative">
             {isLoading ? (
-              <div className="absolute inset-0 flex items-center justify-center bg-white/80 rounded-lg z-10">
+              <div className="absolute inset-0 flex items-center justify-center bg-white/85 rounded-2xl z-10">
                 <div className="flex flex-col items-center">
-                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-700"></div>
-                  <p className="mt-3 font-medium text-green-800">Analyzing crop data...</p>
+                  <div className="animate-spin rounded-full h-14 w-14 border-b-4 border-green-700 mb-1"></div>
+                  <p className="mt-3 font-semibold text-green-900 tracking-wide text-lg">
+                    Analyzing crop data...
+                  </p>
                 </div>
               </div>
             ) : null}
 
-            <PredictionResult 
-              isVisible={showResults} 
-              results={predictionResults} 
+            <PredictionResult
+              isVisible={showResults}
+              results={predictionResults}
             />
 
             {!showResults && !isLoading && (
               <div className="h-full flex items-center justify-center">
-                <div className="text-center p-8">
-                  <Leaf className="h-16 w-16 text-green-200 mx-auto mb-4" />
-                  <h3 className="text-xl font-medium text-gray-400 mb-2">No Prediction Yet</h3>
-                  <p className="text-gray-400">
+                <div className="text-center p-10 animate-fade-in">
+                  <Leaf className="h-20 w-20 text-green-200 mx-auto mb-5 drop-shadow" />
+                  <h3 className="text-xl font-semibold text-gray-400 mb-2">No Prediction Yet</h3>
+                  <p className="text-gray-400 text-base">
                     Fill out the form and submit to see crop success prediction
                   </p>
                 </div>
