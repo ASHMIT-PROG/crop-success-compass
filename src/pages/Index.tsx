@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import CropForm from "@/components/CropForm";
@@ -6,11 +5,14 @@ import PredictionResult from "@/components/PredictionResult";
 import { predictCropSuccess } from "@/lib/mockPredictionService";
 import { DatasetInfo } from "@/components/InfoCard";
 import { Leaf, BarChart, CloudRain } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { Image as ImageIcon } from "lucide-react";
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showResults, setShowResults] = useState(false);
   const [predictionResults, setPredictionResults] = useState<any>(null);
+  const navigate = useNavigate();
 
   const handleFormSubmit = async (data: {
     crop: string;
@@ -38,6 +40,15 @@ const Index = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[linear-gradient(108deg,#f2f58b_18%,#94c514ad_92%)] px-3 py-8 animate-fade-in">
       <div className="w-full max-w-6xl rounded-3xl shadow-2xl bg-white/90 backdrop-blur-2xl border border-green-100 p-0 md:p-8 transition-all duration-300 hover:shadow-[0_8px_48px_-8px_rgba(53,125,80,0.13)]">
+        <div className="flex justify-end mb-2">
+          <button
+            className="flex items-center gap-2 bg-yellow-200 hover:bg-yellow-300 text-green-900 font-semibold py-2 px-4 rounded-lg shadow transition-all border border-green-100"
+            onClick={() => navigate("/plant-id")}
+            aria-label="Go to plant identifier"
+          >
+            <ImageIcon className="w-6 h-6" /> Plant Identifier
+          </button>
+        </div>
         <header className="mb-8 text-center">
           <div className="flex items-center justify-center mb-3 animate-scale-in">
             <Leaf className="h-10 w-10 text-green-600 mr-2 drop-shadow-lg" />
