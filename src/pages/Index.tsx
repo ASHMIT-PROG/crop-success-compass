@@ -45,7 +45,7 @@ const Index = () => {
           <div className="flex items-center justify-center mb-3">
             <Leaf className="h-8 w-8 text-green-600 mr-2" />
             <h1 className="text-3xl font-bold text-green-800">
-              Crop Success Compass
+              FarmSight AI
             </h1>
           </div>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">

@@ -109,12 +109,12 @@ const OSMMapSelector = ({ onLocationSelect }: OSMMapSelectorProps) => {
 
       <div className="rounded-md overflow-hidden border relative" style={{ height: 250 }}>
         <MapContainer
-          center={selectedLocation || [22.5, 78.96]}
+          center={selectedLocation ? [selectedLocation.lat, selectedLocation.lon] : [22.5, 78.96]}
           zoom={selectedLocation ? 7 : 5}
           style={{ height: "100%", width: "100%", zIndex: 1 }}
         >
           <TileLayer
-            attribution='&copy; <a href="https://osm.org/copyright">OpenStreetMap</a>'
+            attribution='&copy; OpenStreetMap contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           {selectedLocation && (
@@ -142,4 +142,3 @@ const OSMMapSelector = ({ onLocationSelect }: OSMMapSelectorProps) => {
 };
 
 export default OSMMapSelector;
-
